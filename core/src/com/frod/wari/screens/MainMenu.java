@@ -3,22 +3,26 @@ package com.frod.wari.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.frod.wari.WariGame;
 
 public class MainMenu implements Screen {
-
+	
+	private WariGame wari;
 	private Stage stage;
 	private Table table;
 	private Skin skin;
 
-	public MainMenu() {
-		// TEMP CODE. JUST TESTING STUFF AND FIGURING OUT HOW SCENE2D UI WORKS
+	public MainMenu(WariGame game) {
+		this.wari = game;
+		
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -26,21 +30,30 @@ public class MainMenu implements Screen {
 		table.setFillParent(true);
 		
 		Image background;
-
-		TextButton button = new TextButton("BLAH really long message lulz", skin, "default");
-		table.add(button);
+		
+		Label title = new Label("WARI", skin);	    
+	    table.add(title).spaceBottom(150).row();
+	    
+		TextButton buttonStart = new TextButton("New Game", skin, "default");
+		buttonStart.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				wari.setScreen(new GameScreen(wari));
+			}
+		});
+		table.add(buttonStart).padTop(40);
 		table.row();
 		
-		Label nameLabel = new Label("Name:", skin);
-	    TextField nameText = new TextField("", skin);
-	    Label addressLabel = new Label("Address:", skin);
-	    TextField addressText = new TextField("", skin);
-	    
-	    table.add(nameLabel);
-	    table.add(nameText).width(200);
-	    table.row();
-	    table.add(addressLabel);
-	    table.add(addressText).width(200);
+		TextButton buttonExit = new TextButton("Exit", skin, "default");
+		buttonExit.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO this might not work on mobile / cause problems with static texture variables
+				Gdx.app.exit();
+			}
+		});
+		table.add(buttonExit).padTop(40);
+		table.row();
 
 		stage.addActor(table);
 		
@@ -78,6 +91,7 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void dispose() {
+		// TODO
 	}
 
 }

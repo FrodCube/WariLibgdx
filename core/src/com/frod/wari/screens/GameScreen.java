@@ -14,7 +14,8 @@ import com.frod.wari.WariGame;
 import com.frod.wari.gameElements.Table;
 
 public class GameScreen implements Screen {
-
+	
+	private WariGame wari;
 	private Table table;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -31,7 +32,8 @@ public class GameScreen implements Screen {
 	private float timer = 0;
 	private float fps = 0;
 
-	public GameScreen() {
+	public GameScreen(WariGame game) {
+		wari = game;
 		Gdx.app.log("Game", "Loading...");
 		loadAssets();
 
@@ -113,6 +115,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		// table ? TODO
+		batch.dispose();
+		texture.dispose();
+		font.dispose();
 	}
 
 }

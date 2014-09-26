@@ -13,7 +13,7 @@ public class WariGame extends Game {
 
 	@Override
 	public void create() {
-		setScreen(new MainMenu());
+		setScreen(new MainMenu(this));
 	}
 
 }
