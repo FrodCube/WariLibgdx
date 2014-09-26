@@ -14,6 +14,8 @@ public class WariGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		
+		
 	}
 
 	@Override
