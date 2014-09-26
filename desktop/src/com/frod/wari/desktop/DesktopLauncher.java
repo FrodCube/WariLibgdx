@@ -7,6 +7,8 @@ import com.frod.wari.WariGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = WariGame.SCREEN_WIDTH;
+		config.height = WariGame.SCREEN_HEIGHT;
 		new LwjglApplication(new WariGame(), config);
 	}
 }
